@@ -1,16 +1,4 @@
-#include<bits/stdc++.h>
-#include<easyx.h>
 #include"tree.h"
-#include<graphics.h>
-#include<conio.h>
-#define graph_width 1000
-#define graph_height 500
-#define	bk_color WHITE
-#define fill_color RED
-#define line_color BLACK
-#define	text_color YELLOW
-#define	text_height 50
-#define text_width 20
 void imageput_alpha(IMAGE* img1,int x,int y)
 {
 	int w=img1->getwidth();
@@ -27,11 +15,11 @@ void init()
 	setbkmode(TRANSPARENT);
 	settextcolor(text_color);
 	setlinestyle(PS_SOLID);
-	settextstyle(text_height,text_width,"¿¬Ìå");
-	mciSendString("open C:\\Users\\Dell\\Downloads\\M500000yLI8y2RJRq3.mp3",NULL,0,NULL);
-	mciSendString("play C:\\Users\\Dell\\Downloads\\M500000yLI8y2RJRq3.mp3",NULL,0,NULL);
+	settextstyle(text_height,text_width,"å®‹ä½“");
+	mciSendString("open ..\\music\\M500000yLI8y2RJRq3.mp3",NULL,0,NULL);
+	mciSendString("play ..\\music\\M500000yLI8y2RJRq3.mp3",NULL,0,NULL);
 	HWND hwd=GetHWnd();
-	SetWindowText(hwd,"ÓÎÏ·´°¿Ú");
+	SetWindowText(hwd,"æ¸¸æˆçª—å£");
 	
 }
 void text_scan(char a[],int x,int y,int b)
@@ -43,9 +31,68 @@ void text_scan(char a[],int x,int y,int b)
 void gameexit_graph()
 {
 	HWND hwd=GetHWnd();
-	int isok=MessageBox(hwd,"ÊÇ·ñÒªÍË³öÓÎÏ·","ÌáÊ¾",MB_OKCANCEL);
+	int isok=MessageBox(hwd,"æ˜¯å¦è¦é€€å‡ºæ¸¸æˆ","æç¤º",MB_OKCANCEL);
 	if(isok==IDOK)
 	{
 		closegraph();
 	}
+}
+void move(ExMessage*msg1,int &plant_x,int& plant_y)
+{
+	bool is_up;
+	bool is_down;
+	bool is_left;
+	bool is_right;
+if(msg1->message==WM_KEYDOWN)
+		{
+		switch(msg1->vkcode)
+		{
+			case 'W':
+			case 'w':
+				is_up=true;
+				break;
+			case 'S':
+			case 's':
+				is_down=true;
+				break;
+			case 'A':
+			case 'a':
+				is_left=true;
+				break;
+			case 'D':
+			case 'd':
+				is_right=true;
+				break;
+		}
+	   }
+	    if(msg1->message==WM_KEYUP)
+	    {
+		switch(msg1->vkcode)
+		{
+			case 'W':
+			case 'w':
+				is_up=false;
+				break;
+			case 'S':
+			case 's':
+				is_down=false;
+				break;
+			case 'A':
+			case 'a':
+				is_left=false;
+				break;
+			case 'D':
+			case 'd':
+				is_right=false;
+				break;
+		}
+	    }
+	if(is_up)
+	 plant_y-=10;
+	if(is_down)
+	 plant_y+=10;
+	if(is_left)
+	 plant_x-=10;
+	if(is_right)
+	 plant_x+=10; 
 }
