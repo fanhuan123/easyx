@@ -1,4 +1,6 @@
 #include"tree.h"
+#define graph_width 1500
+#define graph_height 1000
 void imageput_alpha(IMAGE* img1,int x,int y)
 {
 	int w=img1->getwidth();
@@ -15,11 +17,11 @@ void init()
 	setbkmode(TRANSPARENT);
 	settextcolor(text_color);
 	setlinestyle(PS_SOLID);
-	settextstyle(text_height,text_width,"å®‹ä½“");
+	settextstyle(text_height,text_width,"ËÎÌå");
 	mciSendString("open ..\\music\\M500000yLI8y2RJRq3.mp3",NULL,0,NULL);
 	mciSendString("play ..\\music\\M500000yLI8y2RJRq3.mp3",NULL,0,NULL);
 	HWND hwd=GetHWnd();
-	SetWindowText(hwd,"æ¸¸æˆçª—å£");
+	SetWindowText(hwd,"ÓÎÏ·´°¿Ú");
 	
 }
 void text_scan(char a[],int x,int y,int b)
@@ -31,7 +33,7 @@ void text_scan(char a[],int x,int y,int b)
 void gameexit_graph()
 {
 	HWND hwd=GetHWnd();
-	int isok=MessageBox(hwd,"æ˜¯å¦è¦é€€å‡ºæ¸¸æˆ","æç¤º",MB_OKCANCEL);
+	int isok=MessageBox(hwd,"ÊÇ·ñÒªÍË³öÓÎÏ·","ÌáÊ¾",MB_OKCANCEL);
 	if(isok==IDOK)
 	{
 		closegraph();

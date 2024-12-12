@@ -2,42 +2,45 @@
 using namespace std;
 int main()
 {
-	init();//åˆå§‹åŒ–å‡½æ•° 
-	char imagefile_route[100];//å›¾ç‰‡æ–‡ä»¶è·¯å¾„æ•°ç»„ 
-	IMAGE img_bk,img_plant,img_shell;//å›¾ç‰‡å˜é‡ 
-	int plantimg_h ;//æ¤ç‰©å›¾ç‰‡é«˜åº¦å˜é‡ 
-	int plantimg_w ;//æ¤ç‰©å›¾ç‰‡å®½åº¦å˜é‡ 
-	int shellimg_h ;
-	int shellimg_w;
-	int plant_x=0;
-	int plant_y=0;
+	init();//³õÊ¼»¯º¯Êı 
+	char imagefile_route[100];//Í¼Æ¬ÎÄ¼şÂ·¾¶Êı×é 
+	IMAGE img_bk,img_plant,img_fire,img_enemy;//Í¼Æ¬±äÁ¿ 
+	int plantimg_h ;//Ö²ÎïÍ¼Æ¬¸ß¶È±äÁ¿ 
+	int plantimg_w ;//Ö²ÎïÍ¼Æ¬¿í¶È±äÁ¿ 
+	int fireimg_h ;
+	int fireimg_w;
+	int plant_x=100;
+	int plant_y=100;
 	int is_add=-1;
 	double angle=0;
 	int radim=200;
 	ExMessage msg1;
-	BeginBatchDraw();//å¼€å§‹æ‰¹é‡ä½œå›¾ 
+	BeginBatchDraw();//¿ªÊ¼ÅúÁ¿×÷Í¼ 
 	//gameexit_graph();
 	while(1)
 	{	
-	cleardevice();//ç”¨èƒŒæ™¯é¢œè‰²åˆ·æ–°æ¸¸æˆçª—å£ 
-	loadimage(&img_bk,"..\\image\\background.jpg",graph_width,graph_height);//è·å–èƒŒæ™¯å›¾ç‰‡ 
-	putimage(0,0,&img_bk);//åŠ è½½èƒŒæ™¯å›¾ç‰‡ 
-	text_scan("é‡‘å¸æ•°é‡:",0,0,0);//çª—å£æ’å…¥æ–‡æœ¬ 
-	sprintf(imagefile_route,"..\\image\\Imitater_spin%d.png",clock()/50%6+1);//å¾€å­—ç¬¦ä¸²ä¸­æ’å…¥å˜é‡ 
-	loadimage(&img_plant,imagefile_route);//è·å–æ¤ç‰©å›¾ç‰‡ 
-	plantimg_h = img_plant.getheight();//è·å–æ¤ç‰©å›¾ç‰‡é«˜åº¦ 
-	plantimg_w = img_plant.getwidth();//è·å–æ¤ç‰©å›¾ç‰‡å®½åº¦ 
-	shellimg_h = img_shell.getheight();//è·å–ç«çƒå›¾ç‰‡é«˜åº¦ 
-	shellimg_w = img_shell.getwidth();//è·å–ç«çƒå›¾ç‰‡å®½åº¦
-	loadimage(&img_shell,"C:\\Users\\1\\Desktop\\easyxç´ æ\\æ¤ç‰©å¤§æˆ˜åƒµå°¸ç´ æåŒ…\\reanim\\FirePea.png");
+	cleardevice();//ÓÃ±³¾°ÑÕÉ«Ë¢ĞÂÓÎÏ·´°¿Ú 
+	sprintf(imagefile_route,".\\image\\bk%d.png",clock()/120%10+1);
+	loadimage(&img_bk,imagefile_route,graph_width,graph_height);//»ñÈ¡±³¾°Í¼Æ¬ 
+	putimage(0,-100,&img_bk);//¼ÓÔØ±³¾°Í¼Æ¬ 
+	sprintf(imagefile_route,".\\image\\enemy%d.png",clock()/150%9+1);
+	loadimage(&img_enemy,imagefile_route,100,100);//»ñÈ¡É¥Ê¬Í¼Æ¬ 
+	imageput_alpha(&img_enemy,500,200);//¼ÓÔØÉ¥Ê¬Í¼Æ¬ 
+	sprintf(imagefile_route,".\\image\\Imitater_spin%d.png",clock()/60%6+1);//Íù×Ö·û´®ÖĞ²åÈë±äÁ¿ 
+	loadimage(&img_plant,imagefile_route);//»ñÈ¡Ö²ÎïÍ¼Æ¬ 
+	plantimg_h = img_plant.getheight();//»ñÈ¡Ö²ÎïÍ¼Æ¬¸ß¶È 
+	plantimg_w = img_plant.getwidth();//»ñÈ¡Ö²ÎïÍ¼Æ¬¿í¶È 
+	fireimg_h = img_fire.getheight();//»ñÈ¡¹í»ğÍ¼Æ¬¸ß¶È 
+	fireimg_w = img_fire.getwidth();//»ñÈ¡¹í»ğÍ¼Æ¬¿í¶È
+	loadimage(&img_fire,".\\image\\fire.png",100,50);
 	while(peekmessage(&msg1))
 	{
 		move(&msg1,plant_x,plant_y);
 	}
-	imageput_alpha(&img_plant,plant_x,plant_y);//ä»¥é€æ˜èƒŒæ™¯æ–¹å¼åŠ è½½æ¤ç‰©å›¾ç‰‡
-	imageput_alpha(&img_shell,plant_x+plantimg_w*0.5+radim*cos(angle)-shellimg_w*0.5,plant_y+plantimg_h*0.5+radim*sin(angle)-shellimg_h*0.5);
-    imageput_alpha(&img_shell,plant_x+plantimg_w*0.5+radim*cos(angle+2*M_PI/3)-shellimg_w*0.5,plant_y+plantimg_h*0.5+radim*sin(angle+2*M_PI/3)-shellimg_h*0.5);
-    imageput_alpha(&img_shell,plant_x+plantimg_w*0.5+radim*cos(angle+4*M_PI/3)-shellimg_w*0.5,plant_y+plantimg_h*0.5+radim*sin(angle+4*M_PI/3)-shellimg_h*0.5);
+	imageput_alpha(&img_plant,plant_x,plant_y);//ÒÔÍ¸Ã÷±³¾°·½Ê½¼ÓÔØÖ²ÎïÍ¼Æ¬
+	imageput_alpha(&img_fire,plant_x+plantimg_w*0.5+radim*cos(angle)-fireimg_w*0.5,plant_y+plantimg_h*0.5+radim*sin(angle)-fireimg_h*0.5);
+    imageput_alpha(&img_fire,plant_x+plantimg_w*0.5+radim*cos(angle+2*M_PI/3)-fireimg_w*0.5,plant_y+plantimg_h*0.5+radim*sin(angle+2*M_PI/3)-fireimg_h*0.5);
+    imageput_alpha(&img_fire,plant_x+plantimg_w*0.5+radim*cos(angle+4*M_PI/3)-fireimg_w*0.5,plant_y+plantimg_h*0.5+radim*sin(angle+4*M_PI/3)-fireimg_h*0.5);
     angle+=0.1;
     if(radim==100)
     {
@@ -48,7 +51,6 @@ int main()
 		is_add=-1;
 	}
 	radim+=is_add*10;
-	FlushBatchDraw();//æ”¾ç½®æ‰€æœ‰å›¾ç‰‡ 
-	Sleep(50);
+	FlushBatchDraw();//·ÅÖÃËùÓĞÍ¼Æ¬ 
 	}	
 }
